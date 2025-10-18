@@ -1,23 +1,45 @@
-export const SITE = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
-  author: "Sat Naing",
-  profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "AstroPaper",
-  ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: true,
-    text: "Edit page",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
-  },
-  dynamicOgImage: true,
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-} as const;
+import fs from "node:fs";
+import path from "node:path";
+import { z } from "zod";
+
+const siteConfigPath = "../../site.config.json";
+if (!fs.existsSync(siteConfigPath)) throw Error(`"${siteConfigPath}" does not exist.`);
+const siteConfigDir = path.dirname(siteConfigPath);
+
+const siteConfigSchema = z.object({
+  website: z.url(),
+  author: z.string(),
+  profile: z.string(),
+  desc: z.string(),
+  title: z.string(),
+  ogImage: z.url().optional(),
+  lightAndDarkMode: z.boolean().default(true),
+  postPerIndex: z.number().default(4),
+  postPerPage: z.number().default(4),
+  scheduledPostMargin: z.number().default(15 * 60 * 1000),
+  showArchives: z.boolean().default(true),
+  showBackButton: z.boolean().default(true),
+  editPost: z.object({
+      enabled: z.boolean(),
+      text: z.string(),
+      url: z.url(),
+    })
+    .default({ enabled: false, text: "", url: "" })
+    .readonly(),
+  dynamicOgImage: z.boolean().default(false),
+  dir: z.enum(["ltr", "rtl", "auto"]).default("auto"),
+  lang: z.string().default("ja"),
+  timezone: z.string().default("Asia/Tokyo"),
+  contentDir: z.string().transform(s => path.relative(process.cwd(), path.isAbsolute(s) ? s : path.resolve(siteConfigDir, s))),
+}).readonly();
+type SiteConfig = z.infer<typeof siteConfigSchema>;
+
+function loadSiteConfig(filePath: string): SiteConfig {
+  const str = fs.readFileSync(filePath, "utf-8");
+  const raw = JSON.parse(str);
+  const result = siteConfigSchema.safeParse(raw);
+  if (!result.success) throw result.error;
+  return result.data;
+}
+
+export const SITE = loadSiteConfig(siteConfigPath);

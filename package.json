@@ -2,11 +2,14 @@
   "name": "astro-paper",
   "type": "module",
   "version": "5.5.0",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
     "preview": "astro preview",
     "sync": "astro sync",
+    "check": "astro check",
+    "start": "astro dev",
     "astro": "astro",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
@@ -20,11 +23,11 @@
     "astro": "^5.12.0",
     "dayjs": "^1.11.13",
     "lodash.kebabcase": "^4.1.1",
-    "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.15.2",
     "sharp": "^0.34.2",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

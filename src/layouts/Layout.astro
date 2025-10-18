@@ -5,15 +5,15 @@ import { SITE } from "@/config";
 import "@/styles/global.css";
 
 export interface Props {
-  title?: string;
-  author?: string;
-  profile?: string;
-  description?: string;
-  ogImage?: string;
-  canonicalURL?: string;
-  pubDatetime?: Date;
-  modDatetime?: Date | null;
-  scrollSmooth?: boolean;
+  title?: string | undefined;
+  author?: string | undefined;
+  profile?: string | undefined;
+  description?: string | undefined;
+  ogImage?: string | undefined;
+  canonicalURL?: string | undefined;
+  pubDatetime?: Date | undefined;
+  modDatetime?: Date | null | undefined;
+  scrollSmooth?: boolean | undefined;
 }
 
 const {
