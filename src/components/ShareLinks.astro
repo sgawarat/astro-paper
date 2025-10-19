@@ -1,6 +1,45 @@
 ---
-import { SHARE_LINKS } from "@/constants";
+import { Icon } from "astro-icon/components";
 import LinkButton from "./LinkButton.astro";
+
+const SHARE_LINKS = [
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/?text=",
+    linkTitle: `Share this post via WhatsApp`,
+    icon: "tabler:brand-whatsapp",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/sharer.php?u=",
+    linkTitle: `Share this post on Facebook`,
+    icon: "tabler:brand-facebook",
+  },
+  {
+    name: "X",
+    href: "https://x.com/intent/post?url=",
+    linkTitle: `Share this post on X`,
+    icon: "tabler:brand-x",
+  },
+  {
+    name: "Telegram",
+    href: "https://t.me/share/url?url=",
+    linkTitle: `Share this post via Telegram`,
+    icon: "tabler:brand-telegram",
+  },
+  {
+    name: "Pinterest",
+    href: "https://pinterest.com/pin/create/button/?url=",
+    linkTitle: `Share this post on Pinterest`,
+    icon: "tabler:brand-pinterest",
+  },
+  {
+    name: "Mail",
+    href: "mailto:?subject=See%20this%20post&body=",
+    linkTitle: `Share this post via email`,
+    icon: "tabler:mail",
+  },
+] as const;
 
 const URL = Astro.url;
 ---
@@ -16,7 +55,7 @@ const URL = Astro.url;
             class="scale-90 p-2 hover:rotate-6 sm:p-1"
             title={social.linkTitle}
           >
-            <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+            <Icon name={social.icon} class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
             <span class="sr-only">{social.linkTitle}</span>
           </LinkButton>
         ))}
