@@ -2,7 +2,6 @@ import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import remarkToc from "remark-toc";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -21,7 +20,7 @@ export default defineConfig({
     icon(),
   ],
   markdown: {
-    remarkPlugins: [remarkToc],
+    remarkPlugins: [],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
