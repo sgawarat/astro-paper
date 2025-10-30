@@ -9,18 +9,39 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
+import { remarkAozoraRuby } from "@sgawarat/remark-aozora-ruby";
+import {
+  createGlob,
+  remarkObsidianWikilink,
+} from "@sgawarat/remark-obsidian-wikilink";
+import { slugifyStr } from "./src/utils/slugify";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
     }),
     icon(),
   ],
   markdown: {
-    remarkPlugins: [],
+    gfm: true,
+    remarkPlugins: [
+      [remarkMath, { singleDollarTextMath: true }],
+      [remarkAozoraRuby, {}],
+      [
+        remarkObsidianWikilink,
+        {
+          glob: createGlob(SITE.contentDir),
+          slugify: slugifyStr,
+          baseUrl: SITE.website,
+        },
+      ],
+    ],
+    rehypePlugins: [[rehypeKatex, { output: "mathml" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
