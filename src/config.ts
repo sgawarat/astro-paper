@@ -1,11 +1,16 @@
 import fs from "node:fs";
-import path from "node:path";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
+import process from "node:process";
 import { z } from "zod";
 
-const siteConfigPath = "../../site.config.json";
-if (!fs.existsSync(siteConfigPath))
-  throw Error(`"${siteConfigPath}" does not exist.`);
-const siteConfigDir = path.dirname(siteConfigPath);
+const siteConfigEnv = process.env.SITE_CONFIG ?? "./site.config.json";
+const siteConfigPath = isAbsolute(siteConfigEnv)
+  ? siteConfigEnv
+  : resolve(siteConfigEnv);
+if (!fs.existsSync(siteConfigPath)) {
+  throw new Error(`"${siteConfigPath}" does not exist.`);
+}
+const siteConfigDir = dirname(siteConfigPath);
 
 const socialConfigSchema = z
   .array(
@@ -14,7 +19,7 @@ const socialConfigSchema = z
       href: z.url(),
       linkTitle: z.string(),
       icon: z.string(),
-    })
+    }),
   )
   .readonly();
 
@@ -46,13 +51,11 @@ const siteConfigSchema = z
     timezone: z.string().default("Asia/Tokyo"),
     contentDir: z
       .string()
-      .transform(s =>
-        path
-          .relative(
-            process.cwd(),
-            path.isAbsolute(s) ? s : path.resolve(siteConfigDir, s)
-          )
-          .replaceAll("\\", "/")
+      .transform((s) =>
+        relative(
+          process.cwd(),
+          isAbsolute(s) ? s : resolve(siteConfigDir, s),
+        ).replaceAll("\\", "/"),
       ),
     socials: socialConfigSchema.default([]),
   })
