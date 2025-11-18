@@ -17,6 +17,7 @@ import {
 import { slugifyStr } from "./src/utils/slugify";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,6 +41,7 @@ export default defineConfig({
           baseUrl: SITE.website,
         },
       ],
+      [remarkPandocCitation, {}],
     ],
     rehypePlugins: [[rehypeKatex, { output: "mathml" }]],
     shikiConfig: {
