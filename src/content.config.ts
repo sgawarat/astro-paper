@@ -3,7 +3,7 @@ import { glob } from "astro/loaders";
 import { SITE } from "@/config";
 
 const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: SITE.contentDir }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: SITE.contentDir }),
   schema: ({ image }) =>
     z
       .object({
@@ -24,7 +24,7 @@ const blog = defineCollection({
         date: z.date().optional(),
         lastmod: z.date().optional(),
       })
-      .transform(data => ({
+      .transform((data) => ({
         ...data,
         pubDatetime: data.dateCreated ?? data.date ?? new Date(),
         modDatetime: data.dateModified ?? data.lastmod,

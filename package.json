@@ -16,8 +16,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/mdx": "^4.3.11",
     "@iconify-json/tabler": "^1.2.23",
     "@resvg/resvg-js": "^2.6.2",
     "@sgawarat/remark-aozora-ruby": "workspace:^",

@@ -18,11 +18,13 @@ import { slugifyStr } from "./src/utils/slugify";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [
+    mdx(),
     sitemap({
       filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
     }),
