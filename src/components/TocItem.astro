@@ -1,0 +1,20 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type TocItem = MarkdownHeading | TocItem[];
+
+const { items, nested } = Astro.props;
+
+export interface Props {
+  items: TocItem[];
+  nested?: boolean | undefined;
+}
+---
+
+<ul class={`list-disc list-inside ${nested ? "indent-4" : ""}`}>
+  {items.map(item => (
+    <>
+      {Array.isArray(item) ? (<Astro.self items={item} nested />) : (<li><a href="#{item.slug}">{item.text}</a></li>)}
+    </>
+  ))}
+</ul>

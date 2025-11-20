@@ -85,10 +85,12 @@ const nextPost =
 <Layout {...layoutProps}>
   <Header />
   <BackButton />
+  <div class="flex flex-row justify-center">
+  <div class="float-left mx-0 w-[calc(100vw-64rem)] h-full hidden md:block"></div>
   <main
     id="main-content"
     class:list={[
-      "mx-auto w-full max-w-app px-4 pb-12",
+      "mx-0 w-full max-w-app px-4 pb-12",
       { "mt-8": !SITE.showBackButton },
     ]}
     data-pagefind-body
@@ -110,8 +112,6 @@ const nextPost =
       >
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
-
-    <TOC headings={headings} />
 
     <article
       id="article"
@@ -172,6 +172,8 @@ const nextPost =
       }
     </div>
   </main>
+    <TOC headings={headings} />
+  </div>
   <Footer />
 </Layout>
 

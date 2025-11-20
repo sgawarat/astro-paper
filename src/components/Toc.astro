@@ -1,0 +1,54 @@
+---
+import type { MarkdownHeading } from "astro";
+import { render } from "astro:content";
+import TocItem from "@/components/TocItem.astro";
+
+const { headings } = Astro.props;
+
+type TocNode = MarkdownHeading | TocNode[];
+
+function buildTocTree(headings: MarkdownHeading[]) {
+  let minDepth = Infinity;
+  let maxDepth = 0;
+  for (const h of headings) {
+    minDepth = Math.min(minDepth, h.depth);
+    maxDepth = Math.max(maxDepth, h.depth);
+  }
+
+  const baseDepth = minDepth - 1;
+  const stack: TocNode[][] = [];
+  for (const h of headings) {
+    if (stack.length > h.depth) {
+      stack.length = h.depth - baseDepth;
+    } else {
+      while (stack.length < h.depth - baseDepth) {
+        const items: TocNode[] = [];
+        stack.at(-1)?.push(items);
+        stack.push(items);
+      }
+    }
+    stack.at(-1)?.push(h);
+  }
+  return stack[0];
+}
+
+const tree = buildTocTree(headings) ?? [];
+
+export interface Props {
+  headings: MarkdownHeading[];
+}
+---
+
+
+{
+  tree.length > 0 && (
+  <div class="float-right mx-0 w-[calc(100vw-64rem)] h-full hidden md:block">
+    <div class="sticky top-20 hidden xl:block">
+      Table of Contents:
+      <nav class="p-6 max-w-fit border-solid border rounded-md">
+        <TocItem items={tree} />
+      </nav>
+    </div>
+  </div>
+  )
+}
