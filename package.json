@@ -16,9 +16,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^6.3.9",
     "@astrojs/mdx": "^4.3.11",
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
+    "@hbsnow/rehype-sectionize": "^1.0.7",
     "@iconify-json/tabler": "^1.2.23",
     "@resvg/resvg-js": "^2.6.2",
     "@sgawarat/remark-aozora-ruby": "workspace:^",

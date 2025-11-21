@@ -19,6 +19,8 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 import mdx from "@astrojs/mdx";
+import rehypeSectionize from "@hbsnow/rehype-sectionize";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
@@ -45,7 +47,11 @@ export default defineConfig({
       ],
       [remarkPandocCitation, {}],
     ],
-    rehypePlugins: [[rehypeKatex, { output: "mathml" }]],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [rehypeSectionize, {}],
+      [rehypeKatex, { output: "mathml" }],
+    ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
