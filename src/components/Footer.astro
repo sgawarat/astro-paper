@@ -1,6 +1,7 @@
 ---
 import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
+import { SITE } from "@/config";
 
 const currentYear = new Date().getFullYear();
 
@@ -21,7 +22,7 @@ const { noMarginTop = false } = Astro.props;
     <a class="text-foreground hover:text-accent" href="/notice">NOTICE</a>
 
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>Copyright &#169; {currentYear}</span>
+      <span>Copyright &#169; {currentYear} {SITE.author}</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
       <span>All rights reserved.</span>
     </div>
