@@ -1,5 +1,10 @@
-import kebabcase from "lodash.kebabcase";
+import GithubSlugger, { slug } from "github-slugger";
 
-export const slugifyStr = (str: string) => kebabcase(str);
+export function slugifyStr(str: string) {
+  return slug(str);
+}
 
-export const slugifyAll = (arr: string[]) => arr.map(str => slugifyStr(str));
+export function slugifyAll(arr: string[]) {
+  const slugger = new GithubSlugger();
+  return arr.map((str) => slugger.slug(str));
+}
