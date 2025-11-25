@@ -14,7 +14,7 @@ export interface Props {
 <ul class={`flex flex-col gap-3 ${nested ? "pl-2" : ""}`}>
   {items.map(item => (
     <>
-      {Array.isArray(item) ? (<Astro.self items={item} nested />) : (<li><a class="hover:text-accent pl-2" href={`#${item.slug}`}>{item.text}</a></li>)}
+      {Array.isArray(item) ? (<Astro.self items={item} nested />) : (<li><a class="hover:text-accent pl-2 border-(--color-accent)" href={`#${item.slug}`}>{item.text}</a></li>)}
     </>
   ))}
 </ul>
