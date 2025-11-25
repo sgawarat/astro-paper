@@ -5,19 +5,33 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
+  /* --background: #fdfdfd;
   --foreground: #282728;
   --accent: #006cac;
   --muted: #e6e6e6;
-  --border: #ece9e9;
+  --border: #ece9e9; */
+
+  /* GitHub Light theme */
+  --background: #ffffff;
+  --foreground: #24292e;
+  --accent: #599eff;
+  --muted: #c0c0c0;
+  --border: #cad0d3;
 }
 
 html[data-theme="dark"] {
-  --background: #212737;
+  /* --background: #212737;
   --foreground: #eaedf3;
   --accent: #ff6b01;
   --muted: #343f60;
-  --border: #ab4b08;
+  --border: #ab4b08; */
+
+  /* GitHub Dark theme */
+  --background: #0d1117;
+  --foreground: #ecf2f8;
+  --accent: #77bdfb;
+  --muted: #c6cdd5;
+  --border: #21262d;
 }
 
 @theme inline {
