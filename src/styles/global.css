@@ -16,7 +16,7 @@ html[data-theme="light"] {
   --foreground: #24292e;
   --accent: #599eff;
   --muted: #c0c0c0;
-  --border: #cad0d3;
+  --border: #24292e;
 }
 
 html[data-theme="dark"] {
@@ -30,8 +30,8 @@ html[data-theme="dark"] {
   --background: #0d1117;
   --foreground: #ecf2f8;
   --accent: #77bdfb;
-  --muted: #c6cdd5;
-  --border: #21262d;
+  --muted: #21262d;
+  --border: #89929b;
 }
 
 @theme inline {
