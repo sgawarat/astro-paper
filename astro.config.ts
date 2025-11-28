@@ -42,7 +42,7 @@ export default defineConfig({
         {
           glob: createGlob(SITE.contentDir),
           slugify: slugifyStr,
-          baseUrl: SITE.website,
+          baseUrl: `${SITE.website}/posts`,
         },
       ],
       [remarkPandocCitation, {}],
