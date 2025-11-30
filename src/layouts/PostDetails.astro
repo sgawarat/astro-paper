@@ -87,7 +87,7 @@ const nextPost =
   <BackButton />
 
   <div class="flex flex-row justify-center">
-    <div class="float-left w-[calc(50vw-24rem)] h-full hidden md:block"></div>
+    <div class="w-[calc(50vw-24rem)] max-w-xs h-full hidden md:block"></div>
     <main
       id="main-content"
       class:list={[
@@ -174,9 +174,9 @@ const nextPost =
       </div>
     </main>
 
-    <div class="float-right w-[calc(50vw-24rem)] h-full hidden md:block">
-      <div id="floating-toc" class="sticky top-10 hidden lg:block text-sm">
-        <div class="py-4">Table of Contents:</div>
+    <div class="w-[calc(50vw-24rem)] max-w-xs h-full hidden md:block">
+      <div class="py-4 text-sm hidden lg:block">Table of Contents:</div>
+      <div id="sticky-toc" class="sticky h-[calc(100vh-5rem)] top-10 pr-2 hidden lg:block text-sm overflow-y-scroll">
         <TOC headings={headings} />
       </div>
     </div>
@@ -185,7 +185,7 @@ const nextPost =
   <Footer />
 </Layout>
 
-<script src="../scripts/floating-toc.ts" />
+<script src="../scripts/stickyToc.ts" />
 
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
