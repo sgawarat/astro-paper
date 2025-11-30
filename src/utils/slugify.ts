@@ -6,5 +6,5 @@ export function slugifyStr(str: string) {
 
 export function slugifyAll(arr: string[]) {
   const slugger = new GithubSlugger();
-  return arr.map((str) => slugger.slug(str));
+  return arr.map(str => slugger.slug(str));
 }

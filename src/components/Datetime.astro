@@ -25,14 +25,11 @@ const {
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
-const modDatetimeLocal = dayjs(modDatetime).tz(
-  postTimezone || SITE.timezone
-);
-const pubDatetimeLocal = dayjs(pubDatetime).tz(
-  postTimezone || SITE.timezone
-);
+const modDatetimeLocal = dayjs(modDatetime).tz(postTimezone || SITE.timezone);
+const pubDatetimeLocal = dayjs(pubDatetime).tz(postTimezone || SITE.timezone);
 
-const isModified = modDatetimeLocal && modDatetimeLocal > pubDatetimeLocal.add(1, "day");
+const isModified =
+  modDatetimeLocal && modDatetimeLocal > pubDatetimeLocal.add(1, "day");
 
 // const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
 const modDate = modDatetimeLocal.format("YYYY-MM-DD");
@@ -40,7 +37,8 @@ const pubDate = pubDatetimeLocal.format("YYYY-MM-DD");
 ---
 
 <div class:list={["flex items-center gap-x-1 opacity-80", className]}>
-  <Icon name="tabler:calendar"
+  <Icon
+    name="tabler:calendar"
     class:list={[
       "inline-block size-6 min-w-[1.375rem]",
       { "scale-90": size === "sm" },
@@ -52,14 +50,20 @@ const pubDate = pubDatetimeLocal.format("YYYY-MM-DD");
   >
   {
     isModified && (
-      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}></span>
-      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
-        <time
-          class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-          datetime={modDatetimeLocal.toISOString()}>{modDate}</time
-        >
-      </span>
+      <>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          ·
+        </span>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          Updated:
+          <time
+            class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+            datetime={modDatetimeLocal.toISOString()}
+          >
+            {modDate}
+          </time>
+        </span>
+      </>
     )
   }
 </div>

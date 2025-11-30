@@ -15,10 +15,9 @@ const siteConfigDir = dirname(siteConfigPath);
 function resolvePath(s: string) {
   return relative(
     process.cwd(),
-    isAbsolute(s) ? s : resolve(siteConfigDir, s),
+    isAbsolute(s) ? s : resolve(siteConfigDir, s)
   ).replaceAll("\\", "/");
 }
-
 
 const socialConfigSchema = z
   .array(
@@ -27,7 +26,7 @@ const socialConfigSchema = z
       href: z.url(),
       linkTitle: z.string(),
       icon: z.string(),
-    }),
+    })
   )
   .readonly();
 
@@ -57,11 +56,12 @@ const siteConfigSchema = z
     dir: z.enum(["ltr", "rtl", "auto"]).default("auto"),
     lang: z.string().default("ja"),
     timezone: z.string().default("Asia/Tokyo"),
-    contentDir: z
-      .string()
-      .transform(resolvePath),
+    contentDir: z.string().transform(resolvePath),
     socials: socialConfigSchema.default([]),
-    bibliography: z.string().optional().transform((s) => s !== undefined ? resolvePath(s) : s),
+    bibliography: z
+      .string()
+      .optional()
+      .transform(s => (s !== undefined ? resolvePath(s) : s)),
   })
   .readonly();
 type SiteConfig = z.infer<typeof siteConfigSchema>;

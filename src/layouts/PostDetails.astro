@@ -87,7 +87,7 @@ const nextPost =
   <BackButton />
 
   <div class="flex flex-row justify-center">
-    <div class="w-[calc(50vw-24rem)] max-w-xs h-full hidden md:block"></div>
+    <div class="hidden h-full w-[calc(50vw-24rem)] max-w-xs md:block"></div>
     <main
       id="main-content"
       class:list={[
@@ -118,7 +118,7 @@ const nextPost =
         id="article"
         class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
       >
-        <Content components={{Icon}} />
+        <Content components={{ Icon }} />
       </article>
 
       <hr class="my-8 border-dashed" />
@@ -174,18 +174,20 @@ const nextPost =
       </div>
     </main>
 
-    <div class="w-[calc(50vw-24rem)] max-w-xs h-full hidden md:block">
-      <div class="py-4 text-sm hidden lg:block">Table of Contents:</div>
-      <div id="sticky-toc" class="sticky h-[calc(100vh-5rem)] top-10 pr-2 hidden lg:block text-sm overflow-y-scroll">
+    <div class="hidden h-full w-[calc(50vw-24rem)] max-w-xs md:block">
+      <div class="hidden py-4 text-sm lg:block">Table of Contents:</div>
+      <div
+        id="sticky-toc"
+        class="sticky top-10 hidden h-[calc(100vh-5rem)] overflow-y-scroll pr-2 text-sm lg:block"
+      >
         <TOC headings={headings} />
       </div>
     </div>
-
   </div>
   <Footer />
 </Layout>
 
-<script src="../scripts/stickyToc.ts" />
+<script src="../scripts/stickyToc.ts"></script>
 
 <script is:inline data-astro-rerun>
   /** Create a progress indicator

@@ -18,7 +18,8 @@ async function loadGoogleFont(
     /src: url\((.+?)\) format\('(opentype|truetype)'\)/
   );
 
-  if (!resource || !resource[1]) throw new Error("Failed to download dynamic font");
+  if (!resource || !resource[1])
+    throw new Error("Failed to download dynamic font");
 
   const res = await fetch(resource[1]);
 

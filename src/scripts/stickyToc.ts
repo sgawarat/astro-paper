@@ -2,7 +2,7 @@
 document.addEventListener("astro:page-load", () => {
   // headingクラスのsectionが画面内にあると、対応するTOC項目をアクティブにする
   const observer = new IntersectionObserver(
-    (entries) => {
+    entries => {
       for (const entry of entries) {
         const id = entry.target.getAttribute("aria-labelledby");
         if (id === null) continue;
@@ -19,7 +19,7 @@ document.addEventListener("astro:page-load", () => {
     },
     {
       rootMargin: "0% 0px 0% 0px",
-    },
+    }
   );
   for (const h of document?.querySelectorAll("article section.heading") ?? []) {
     observer.observe(h);

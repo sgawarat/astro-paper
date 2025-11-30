@@ -135,7 +135,6 @@ SOFTWARE.
 
 <https://github.com/pagefind/pagefind>
 
-
 <https://github.com/Pagefind/pagefind/blob/main/LICENSE>
 
 ```
