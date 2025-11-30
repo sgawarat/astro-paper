@@ -45,7 +45,7 @@ export default defineConfig({
           baseUrl: `${SITE.website}/posts`,
         },
       ],
-      [remarkPandocCitation, {}],
+      [remarkPandocCitation, { bibliography: SITE.bibliography }],
     ],
     rehypePlugins: [
       rehypeHeadingIds,

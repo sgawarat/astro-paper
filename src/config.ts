@@ -12,6 +12,14 @@ if (!fs.existsSync(siteConfigPath)) {
 }
 const siteConfigDir = dirname(siteConfigPath);
 
+function resolvePath(s: string) {
+  return relative(
+    process.cwd(),
+    isAbsolute(s) ? s : resolve(siteConfigDir, s),
+  ).replaceAll("\\", "/");
+}
+
+
 const socialConfigSchema = z
   .array(
     z.object({
@@ -51,13 +59,9 @@ const siteConfigSchema = z
     timezone: z.string().default("Asia/Tokyo"),
     contentDir: z
       .string()
-      .transform((s) =>
-        relative(
-          process.cwd(),
-          isAbsolute(s) ? s : resolve(siteConfigDir, s),
-        ).replaceAll("\\", "/"),
-      ),
+      .transform(resolvePath),
     socials: socialConfigSchema.default([]),
+    bibliography: z.string().optional().transform((s) => s !== undefined ? resolvePath(s) : s),
   })
   .readonly();
 type SiteConfig = z.infer<typeof siteConfigSchema>;
