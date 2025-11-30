@@ -20,7 +20,12 @@ import rehypeKatex from "rehype-katex";
 import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 import mdx from "@astrojs/mdx";
 import rehypeSectionize from "@hbsnow/rehype-sectionize";
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, type RemarkPlugin } from "@astrojs/markdown-remark";
+
+// 処理中のファイルのパスをログに出力するremarkプラグイン
+const remarkLog: RemarkPlugin<[]> = () => (_tree, vfile) => {
+  console.log(`::: In "${vfile.path}"`);
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,6 +40,7 @@ export default defineConfig({
   markdown: {
     gfm: true,
     remarkPlugins: [
+      remarkLog,
       [remarkMath, { singleDollarTextMath: true }],
       [remarkAozoraRuby, {}],
       [
