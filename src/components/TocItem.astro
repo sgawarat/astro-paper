@@ -11,14 +11,14 @@ export interface Props {
 }
 ---
 
-<ul class={`flex flex-col gap-3 ${nested ? "pl-2" : ""}`}>
+<ul class={`flex flex-col gap-y-3 ${nested ? "pl-2" : ""}`}>
   {
     items.map(item => (
       <>
         {Array.isArray(item) ? (
           <Astro.self items={item} nested />
         ) : (
-          <li>
+          <li class="-indent-2">
             <a
               class="border-(--color-accent) pl-2 hover:text-accent"
               href={`#${item.slug}`}
