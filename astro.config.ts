@@ -10,6 +10,7 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
 import { remarkAozoraRuby } from "@sgawarat/remark-aozora-ruby";
+import { remarkObsidianBlockId } from "@sgawarat/remark-obsidian-block-id";
 import {
   createGlob,
   remarkObsidianWikilink,
@@ -19,13 +20,13 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 import mdx from "@astrojs/mdx";
-import rehypeSectionize from "@hbsnow/rehype-sectionize";
 import { rehypeHeadingIds, type RemarkPlugin } from "@astrojs/markdown-remark";
+import remarkSectionize from "remark-sectionize";
 
 // 処理中のファイルのパスをログに出力するremarkプラグイン
 const remarkLog: RemarkPlugin<[]> = () => (_tree, vfile) => {
   console.log(`::: In "${vfile.path}"`);
-}
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -42,6 +43,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkLog,
       [remarkMath, { singleDollarTextMath: true }],
+      remarkSectionize,
       [remarkAozoraRuby, {}],
       [
         remarkObsidianWikilink,
@@ -52,12 +54,9 @@ export default defineConfig({
         },
       ],
       [remarkPandocCitation, { bibliography: SITE.bibliography }],
+      [remarkObsidianBlockId, {}],
     ],
-    rehypePlugins: [
-      rehypeHeadingIds,
-      [rehypeSectionize, {}],
-      [rehypeKatex, { output: "mathml" }],
-    ],
+    rehypePlugins: [rehypeHeadingIds, [rehypeKatex, { output: "mathml" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       // themes: { light: "min-light", dark: "night-owl" },

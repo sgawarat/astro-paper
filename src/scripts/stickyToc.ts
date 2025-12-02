@@ -4,7 +4,10 @@ document.addEventListener("astro:page-load", () => {
   const observer = new IntersectionObserver(
     entries => {
       for (const entry of entries) {
-        const id = entry.target.getAttribute("aria-labelledby");
+        const h = entry.target.querySelector("h1,h2,h3,h4,h5,h6");
+        if (h === null) continue;
+
+        const id = h.getAttribute("id");
         if (id === null) continue;
 
         const e = document.querySelector(`#sticky-toc a[href="#${id}"]`);
@@ -21,7 +24,7 @@ document.addEventListener("astro:page-load", () => {
       rootMargin: "0% 0px 0% 0px",
     }
   );
-  for (const h of document?.querySelectorAll("article section.heading") ?? []) {
+  for (const h of document?.querySelectorAll("article section") ?? []) {
     observer.observe(h);
   }
 });
