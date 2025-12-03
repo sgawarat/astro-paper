@@ -1,0 +1,25 @@
+/* SPDX-License-Identifier: MIT */
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  .app-prose math {
+    @apply text-foreground;
+  }
+
+  .katex math[display="block"] {
+    font-size: 1.1rem;
+
+    /* 積分記号が小さくなる事がある問題を無理やり解消させる */
+    mtable {
+      math-style: normal;
+    }
+
+    /* tagが右端に揃わない問題を無理やり解消させる */
+    semantics {
+      width: 100%;
+    }
+    mtd[width="50%"] {
+      width: 50%;
+    }
+  }
+}

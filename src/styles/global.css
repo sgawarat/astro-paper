@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "./typography.css";
+@import "./math.css";
+@import "./tooltip.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 

@@ -30,8 +30,7 @@
     ul,
     figcaption,
     table,
-    code,
-    math {
+    code {
       @apply text-foreground;
     }
 
