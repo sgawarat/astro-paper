@@ -56,6 +56,9 @@ export default defineConfig({
       [remarkPandocCitation, { bibliography: SITE.bibliography }],
       [remarkObsidianBlockId, {}],
     ],
+    remarkRehype: {
+      footnoteLabelProperties: {},
+    },
     rehypePlugins: [rehypeHeadingIds, [rehypeKatex, { output: "mathml" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
