@@ -2,7 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import TocItem from "@/components/TocItem.astro";
 
-const { headings } = Astro.props;
+const { headings, maxDepth } = Astro.props;
 
 type TocNode = MarkdownHeading | TocNode[];
 
@@ -29,20 +29,21 @@ function buildTocTree(headings: MarkdownHeading[]) {
     }
     stack.at(-1)?.push(h);
   }
-  return stack[0];
+  return [stack[0] ?? [], minDepth] as const;
 }
 
-const tree = buildTocTree(headings) ?? [];
+const [tree, minDepth] = buildTocTree(headings);
 
 export interface Props {
   headings: MarkdownHeading[];
+  maxDepth?: number | undefined;
 }
 ---
 
 {
   tree.length > 0 && (
     <nav class="max-w-fit border-l py-4 pl-5 wrap-normal">
-      <TocItem items={tree} />
+      <TocItem items={tree} depth={minDepth} maxDepth={maxDepth} />
     </nav>
   )
 }

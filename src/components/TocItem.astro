@@ -3,31 +3,37 @@ import type { MarkdownHeading } from "astro";
 
 type TocItem = MarkdownHeading | TocItem[];
 
-const { items, nested } = Astro.props;
+const { items, depth, maxDepth, nested } = Astro.props;
 
 export interface Props {
   items: TocItem[];
+  depth: number;
+  maxDepth?: number | undefined;
   nested?: boolean | undefined;
 }
 ---
 
-<ul class={`flex flex-col gap-y-3 ${nested ? "pl-2" : ""}`}>
-  {
-    items.map(item => (
-      <>
-        {Array.isArray(item) ? (
-          <Astro.self items={item} nested />
-        ) : (
-          <li class="-indent-2">
-            <a
-              class="border-(--color-accent) pl-2 hover:text-accent"
-              href={`#${item.slug}`}
-            >
-              {item.text}
-            </a>
-          </li>
-        )}
-      </>
-    ))
-  }
-</ul>
+{maxDepth === undefined || depth <= maxDepth ? (
+  <ul class={`flex flex-col gap-y-3 ${nested ? "pl-2" : ""}`}>
+    {
+      items.map(item => (
+        <>
+          {Array.isArray(item) ? (
+            <Astro.self items={item} depth={depth + 1} maxDepth={maxDepth} nested />
+          ) : (
+            <li class="-indent-2">
+              <a
+                class="border-(--color-accent) pl-2 hover:text-accent"
+                href={`#${item.slug}`}
+              >
+                {item.text}
+              </a>
+            </li>
+          )}
+        </>
+      ))
+    }
+  </ul>
+) : (
+  <></>
+)}
