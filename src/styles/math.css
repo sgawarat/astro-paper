@@ -6,8 +6,15 @@
     @apply text-foreground;
   }
 
-  .katex math[display="block"] {
-    font-size: 1.1rem;
+  /* 数式ブロック */
+  .katex:has(math[display="block"]) {
+    /* 長過ぎる数式はスクロールバーを表示する */
+    @apply block w-full overflow-x-scroll py-3;
+
+    /* 数式を少し大きく表示する */
+    math[display="block"] {
+      @apply text-lg;
+    }
 
     /* 積分記号が小さくなる事がある問題を無理やり解消させる */
     mtable {
@@ -16,6 +23,9 @@
 
     /* tagが右端に揃わない問題を無理やり解消させる */
     semantics {
+      width: 100%;
+    }
+    mtable[width=100%] {
       width: 100%;
     }
     mtd[width="50%"] {
