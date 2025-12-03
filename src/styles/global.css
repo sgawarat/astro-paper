@@ -62,7 +62,7 @@ html[data-theme="dark"] {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  section,
+  section:not(article section),
   footer {
     @apply mx-auto max-w-app px-4;
   }
