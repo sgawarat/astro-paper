@@ -6,17 +6,16 @@ const { headings, maxDepth } = Astro.props;
 
 type TocNode = MarkdownHeading | TocNode[];
 
-function buildTocTree(headings: MarkdownHeading[]) {
+function buildTocTree(headings: MarkdownHeading[], maxDepth: number = Infinity) {
   let minDepth = Infinity;
-  let maxDepth = 0;
   for (const h of headings) {
     minDepth = Math.min(minDepth, h.depth);
-    maxDepth = Math.max(maxDepth, h.depth);
   }
 
   const baseDepth = minDepth - 1;
   const stack: TocNode[][] = [];
   for (const h of headings) {
+    if (h.depth > maxDepth) continue;
     const depth = h.depth - baseDepth;
     if (stack.length > depth) {
       stack.length = depth;
@@ -32,7 +31,7 @@ function buildTocTree(headings: MarkdownHeading[]) {
   return [stack[0] ?? [], minDepth] as const;
 }
 
-const [tree, minDepth] = buildTocTree(headings);
+const [tree, minDepth] = buildTocTree(headings, 4);
 
 export interface Props {
   headings: MarkdownHeading[];
@@ -43,7 +42,7 @@ export interface Props {
 {
   tree.length > 0 && (
     <nav class="max-w-fit border-l py-4 pl-5 wrap-normal">
-      <TocItem items={tree} depth={minDepth} maxDepth={maxDepth} />
+      <TocItem items={tree} depth={minDepth} />
     </nav>
   )
 }
