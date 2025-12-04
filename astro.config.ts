@@ -51,7 +51,7 @@ export default defineConfig({
         {
           glob: createGlob(SITE.contentDir),
           slugify: slugifyStr,
-          baseUrl: `${SITE.website}/posts`,
+          baseUrl: `/posts`,
         },
       ],
       [remarkPandocCitation, { bibliography: SITE.bibliography }],
