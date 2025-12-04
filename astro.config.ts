@@ -22,6 +22,7 @@ import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 import mdx from "@astrojs/mdx";
 import { rehypeHeadingIds, type RemarkPlugin } from "@astrojs/markdown-remark";
 import remarkSectionize from "remark-sectionize";
+import rehypeExternalLinks from "rehype-external-links";
 
 // 処理中のファイルのパスをログに出力するremarkプラグイン
 const remarkLog: RemarkPlugin<[]> = () => (_tree, vfile) => {
@@ -59,7 +60,17 @@ export default defineConfig({
     remarkRehype: {
       footnoteLabelProperties: {},
     },
-    rehypePlugins: [rehypeHeadingIds, [rehypeKatex, { output: "mathml" }]],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [rehypeKatex, { output: "mathml" }],
+      [
+        rehypeExternalLinks,
+        {
+          target: "_blank",
+          rel: ["noopener", "noreferrer", "nofollow", "external"],
+        },
+      ],
+    ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       // themes: { light: "min-light", dark: "night-owl" },
