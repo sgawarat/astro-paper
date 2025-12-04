@@ -13,13 +13,18 @@ export interface Props {
 }
 ---
 
-{maxDepth === undefined || depth <= maxDepth ? (
-  <ul class={`flex flex-col gap-y-3 ${nested ? "pl-2" : ""}`}>
-    {
-      items.map(item => (
+{
+  maxDepth !== undefined && depth > maxDepth ? undefined : (
+    <ul class={`flex flex-col gap-y-3 ${nested ? "pl-2" : ""}`}>
+      {items.map(item => (
         <>
           {Array.isArray(item) ? (
-            <Astro.self items={item} depth={depth + 1} maxDepth={maxDepth} nested />
+            <Astro.self
+              items={item}
+              depth={depth + 1}
+              maxDepth={maxDepth}
+              nested
+            />
           ) : (
             <li class="-indent-2">
               <a
@@ -31,7 +36,7 @@ export interface Props {
             </li>
           )}
         </>
-      ))
-    }
-  </ul>
-) : undefined}
+      ))}
+    </ul>
+  )
+}

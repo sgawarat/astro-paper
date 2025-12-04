@@ -26,6 +26,7 @@ import rehypeExternalLinks from "rehype-external-links";
 
 // 処理中のファイルのパスをログに出力するremarkプラグイン
 const remarkLog: RemarkPlugin<[]> = () => (_tree, vfile) => {
+  // eslint-disable-next-line no-console
   console.log(`::: In "${vfile.path}"`);
 };
 

@@ -6,7 +6,10 @@ const { headings, maxDepth } = Astro.props;
 
 type TocNode = MarkdownHeading | TocNode[];
 
-function buildTocTree(headings: MarkdownHeading[], maxDepth: number = Infinity) {
+function buildTocTree(
+  headings: MarkdownHeading[],
+  maxDepth: number = Infinity
+) {
   let minDepth = Infinity;
   for (const h of headings) {
     minDepth = Math.min(minDepth, h.depth);
@@ -31,7 +34,7 @@ function buildTocTree(headings: MarkdownHeading[], maxDepth: number = Infinity) 
   return [stack[0] ?? [], minDepth] as const;
 }
 
-const [tree, minDepth] = buildTocTree(headings, 4);
+const [tree, minDepth] = buildTocTree(headings, maxDepth);
 
 export interface Props {
   headings: MarkdownHeading[];
