@@ -2,17 +2,17 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
-  .app-prose math {
+  math {
     @apply text-foreground;
   }
 
   /* 数式ブロック */
   .katex:has(math[display="block"]) {
     /* 長過ぎる数式はスクロールバーを表示する */
-    @apply block w-full overflow-x-scroll py-3;
+    @apply block w-full overflow-x-auto py-3;
 
     /* 数式を少し大きく表示する */
-    math[display="block"] {
+    math {
       @apply text-lg;
     }
 
