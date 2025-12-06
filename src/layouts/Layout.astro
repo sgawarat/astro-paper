@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
@@ -130,6 +131,8 @@ const structuredData = {
 
     <ClientRouter />
 
+    <Font cssVariable="--font-math" />
+    <Font cssVariable="--font-math-text" />
     <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>

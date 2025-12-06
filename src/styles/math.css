@@ -4,6 +4,7 @@
 @layer base {
   math {
     @apply text-foreground;
+    font-family: var(--font-math), var(--font-math-text), math;
   }
 
   /* 数式ブロック */
@@ -30,6 +31,7 @@
     }
     mtd[width="50%"] {
       width: 50%;
+      min-width: 0.5rem;  /* tagが数式の一部と誤認されない程度に幅を空ける */
     }
   }
 }

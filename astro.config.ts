@@ -111,5 +111,68 @@ export default defineConfig({
   },
   experimental: {
     preserveScriptOrder: true,
+    fonts: [
+      {
+        provider: "local",
+        name: "STIX Two Math",
+        cssVariable: "--font-math",
+        variants: [
+          {
+            weight: 400,
+            style: "normal",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoMath-Regular.woff2"],
+          },
+        ],
+        fallbacks: ["Cambria Math", "Noto Sans Math", "monospace"]
+      },
+      {
+        provider: "local",
+        name: "STIX Two Text",
+        cssVariable: "--font-math-text",
+        variants: [
+          {
+            weight: 400,
+            style: "normal",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-Regular.woff2"],
+          },
+          {
+            weight: 400,
+            style: "italic",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-Italic.woff2"],
+          },
+          {
+            weight: 500,
+            style: "normal",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-Medium.woff2"],
+          },
+          {
+            weight: 500,
+            style: "italic",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-MediumItalic.woff2"],
+          },
+          {
+            weight: 600,
+            style: "normal",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-SemiBold.woff2"],
+          },
+          {
+            weight: 600,
+            style: "italic",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-SemiBoldItalic.woff2"],
+          },
+          {
+            weight: 700,
+            style: "normal",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-Bold.woff2"],
+          },
+          {
+            weight: 700,
+            style: "italic",
+            src: ["./src/assets/fonts/STIX Two/STIXTwoText-BoldItalic.woff2"],
+          },
+        ],
+        fallbacks: []
+      }
+    ]
   },
 });
