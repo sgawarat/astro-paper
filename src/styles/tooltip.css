@@ -29,7 +29,7 @@
 
 /* ツールチップのターゲットとコンテンツの隙間にカーソル判定を加える */
 .tooltip-content::before {
-  @apply pointer-events-auto absolute top-full left-0 h-2 w-full content-[""];
+  @apply pointer-events-auto absolute top-full left-0 h-2.5 w-full content-[""];
 }
 
 /* ツールチップの吹き出し */
