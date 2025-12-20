@@ -9,12 +9,12 @@
 /* ツールチップのコンテンツ */
 .tooltip-content {
   /* 真上に表示 */
-  left: 50%;
+  left: calc(50% + var(--tooltip-offset-x, 0px));
   transform: translateX(-50%);
   @apply absolute bottom-full z-10;
 
   /* 外枠 */
-  @apply mx-1 mb-1.5 rounded border-2 border-(--color-border) px-2 py-3;
+  @apply mx-0 mb-1.5 rounded border-2 border-(--color-border) px-2 py-3;
 
   /* 中身 */
   @apply box-border w-max max-w-[min(80ch,100vw)] bg-(--color-background) text-center text-sm wrap-break-word;
@@ -35,7 +35,8 @@
 /* ツールチップの吹き出し */
 .tooltip-content::after {
   /* 真上に表示 */
-  @apply absolute top-full left-1/2 -translate-x-1/2 content-[""];
+  left: calc(50% - var(--tooltip-offset-x, 0px));
+  @apply absolute top-full -translate-x-1/2 content-[""];
 
   /* ▼を描く */
   @apply h-0 w-0 border-t-8 border-r-8 border-l-8 border-t-(--color-border) border-r-transparent border-l-transparent;

@@ -10,21 +10,17 @@ document.addEventListener("astro:page-load", () => {
       if (event.type === "touchstart") {
         content.style.display = "block";
       }
-      content.style.left = "50%";
-      content.style.transform = "translateX(-50%)";
-      const left = content.offsetLeft;
-      const width = content.offsetWidth;
+      content.style.setProperty("--tooltip-offset-x", null);
+      const rect = content.getBoundingClientRect();
       if (event.type === "touchstart") {
         content.style.display = "";
       }
 
       // ツールチップが画面からはみ出さないようにずらす
-      if (left < 0) {
-        content.style.left = `${-tooltip.offsetLeft}px`;
-        content.style.transform = "none";
-      } else if (left + width > document.documentElement.clientWidth) {
-        content.style.left = `${document.documentElement.clientWidth - tooltip.offsetLeft - width}px`;
-        content.style.transform = "none";
+      if (rect.left < 0) {
+        content.style.setProperty("--tooltip-offset-x", `${-rect.left}px`);
+      } else if (rect.right > document.documentElement.clientWidth) {
+        content.style.setProperty("--tooltip-offset-x", `${document.documentElement.clientWidth - rect.right}px`);
       }
     }
     tooltip.addEventListener("mouseenter", listener);
