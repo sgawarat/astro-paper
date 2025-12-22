@@ -61,8 +61,7 @@ import { Icon } from "astro-icon/components";
         `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
       );
 
-      const isVisible = scrollTop / scrollTotal > 0.3;
-
+      const isVisible = scrollTop / scrollTotal > 0.1 || scrollTop > 1000;
       if (isVisible !== lastVisible) {
         btnContainer.classList.toggle("opacity-100", isVisible);
         btnContainer.classList.toggle("translate-y-0", isVisible);
