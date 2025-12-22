@@ -123,7 +123,7 @@ export default defineConfig({
             src: ["./src/assets/fonts/STIX Two/STIXTwoMath-Regular.woff2"],
           },
         ],
-        fallbacks: ["Cambria Math", "Noto Sans Math", "monospace"]
+        fallbacks: ["Cambria Math", "Noto Sans Math", "monospace"],
       },
       {
         provider: "local",
@@ -158,7 +158,9 @@ export default defineConfig({
           {
             weight: 600,
             style: "italic",
-            src: ["./src/assets/fonts/STIX Two/STIXTwoText-SemiBoldItalic.woff2"],
+            src: [
+              "./src/assets/fonts/STIX Two/STIXTwoText-SemiBoldItalic.woff2",
+            ],
           },
           {
             weight: 700,
@@ -171,8 +173,8 @@ export default defineConfig({
             src: ["./src/assets/fonts/STIX Two/STIXTwoText-BoldItalic.woff2"],
           },
         ],
-        fallbacks: []
-      }
-    ]
+        fallbacks: [],
+      },
+    ],
   },
 });

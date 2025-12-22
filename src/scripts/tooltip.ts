@@ -20,7 +20,10 @@ document.addEventListener("astro:page-load", () => {
       if (rect.left < 0) {
         content.style.setProperty("--tooltip-offset-x", `${-rect.left}px`);
       } else if (rect.right > document.documentElement.clientWidth) {
-        content.style.setProperty("--tooltip-offset-x", `${document.documentElement.clientWidth - rect.right}px`);
+        content.style.setProperty(
+          "--tooltip-offset-x",
+          `${document.documentElement.clientWidth - rect.right}px`
+        );
       }
     }
     tooltip.addEventListener("mouseenter", listener);
