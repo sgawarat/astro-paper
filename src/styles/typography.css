@@ -59,6 +59,8 @@
     }
 
     table {
+      @apply block overflow-x-auto;
+
       th,
       td {
         @apply border border-border p-2;
