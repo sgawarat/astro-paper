@@ -31,27 +31,28 @@ import { Icon } from "astro-icon/components";
   </button>
 </div>
 
-<script is:inline data-astro-rerun>
+<script>
   /** Scrolls the document to the top when
    * the "Back to Top" button is clicked. */
-  function backToTop() {
+  document.addEventListener("astro:page-load", () => {
     const rootElement = document.documentElement;
     const btnContainer = document.querySelector("#btt-btn-container");
     const backToTopBtn = document.querySelector("[data-button='back-to-top']");
-    const progressIndicator = document.querySelector("#progress-indicator");
-
-    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
-      return;
+    const progressIndicator = document.querySelector<HTMLElement>(
+      "#progress-indicator"
+    );
 
     // Attach click event handler for back-to-top button
-    backToTopBtn.addEventListener("click", () => {
+    backToTopBtn?.addEventListener("click", () => {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
 
     // Handle button visibility according to scroll position
-    let lastVisible = null;
+    let lastVisible: boolean | undefined;
     function handleScroll() {
+      if (btnContainer === null || progressIndicator === null) return;
+
       const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
       const scrollTop = rootElement.scrollTop;
       const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
@@ -72,7 +73,7 @@ import { Icon } from "astro-icon/components";
     }
 
     let ticking = false;
-    document.addEventListener("scroll", () => {
+    const scrollListener = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           handleScroll();
@@ -80,7 +81,14 @@ import { Icon } from "astro-icon/components";
         });
         ticking = true;
       }
-    });
-  }
-  backToTop();
+    };
+    document.addEventListener("scroll", scrollListener);
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        document.removeEventListener("scroll", scrollListener);
+      },
+      { once: true }
+    );
+  });
 </script>

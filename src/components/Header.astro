@@ -142,7 +142,7 @@ const isActive = (path: string) => {
 </header>
 
 <script>
-  function toggleNav() {
+  document.addEventListener("astro:page-load", () => {
     const menuBtn = document.querySelector("#menu-btn");
     const menuItems = document.querySelector("#menu-items");
     const menuIcon = document.querySelector("#menu-icon");
@@ -160,10 +160,5 @@ const isActive = (path: string) => {
       menuIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
-  }
-
-  toggleNav();
-
-  // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", toggleNav);
+  });
 </script>
