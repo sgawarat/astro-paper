@@ -189,10 +189,10 @@ const nextPost =
 
 <script src="@/scripts/stickyToc.ts"></script>
 
-<script>
+<script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
-  document.addEventListener("astro:page-load", () => {
+  function createProgressBar() {
     // Create the main container div
     const progressContainer = document.createElement("div");
     progressContainer.className =
@@ -208,11 +208,12 @@ const nextPost =
 
     // Append the progress container to the document body or any other desired parent element
     document.body.appendChild(progressContainer);
-  });
+  }
+  createProgressBar();
 
   /** Update the progress bar
    *  when user scrolls */
-  document.addEventListener("astro:page-load", () => {
+  function updateScrollProgress() {
     const scrollListener = () => {
       const winScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
@@ -235,11 +236,12 @@ const nextPost =
       },
       { once: true }
     );
-  });
+  }
+  updateScrollProgress();
 
   /** Attaches links to headings in the document,
    *  allowing sharing of sections easily */
-  document.addEventListener("astro:page-load", () => {
+  function addHeadingLinks() {
     const headings = Array.from(
       document.querySelectorAll("h2, h3, h4, h5, h6")
     );
@@ -256,11 +258,12 @@ const nextPost =
       link.appendChild(span);
       heading.appendChild(link);
     }
-  });
+  }
+  addHeadingLinks();
 
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
-  document.addEventListener("astro:page-load", () => {
+  function attachCopyButtons() {
     const copyButtonLabel = "Copy";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
@@ -293,7 +296,7 @@ const nextPost =
       });
     }
 
-    async function copyCode(block: HTMLElement, button: HTMLButtonElement) {
+    async function copyCode(block, button) {
       const code = block.querySelector("code");
       const text = code?.innerText;
 
@@ -306,7 +309,8 @@ const nextPost =
         button.innerText = copyButtonLabel;
       }, 700);
     }
-  });
+  }
+  attachCopyButtons();
 
   /* Go to page start after page swap */
   document.addEventListener("astro:after-swap", () =>
