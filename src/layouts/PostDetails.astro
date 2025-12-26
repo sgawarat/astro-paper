@@ -191,18 +191,18 @@ const nextPost =
 
 <script src="@/scripts/stickyToc.ts"></script>
 
-<script is:inline data-astro-rerun>
+<script>
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
-  function attachCopyButtons() {
+  document.addEventListener("astro:page-load", () => {
     const copyButtonLabel = "Copy";
-    for (const copyButton of document.querySelectorAll(".copy-code")) {
+    for (const copyButton of document.querySelectorAll<HTMLElement>(".copy-code")) {
       copyButton.addEventListener("click", async () => {
         await copyCode(copyButton);
       });
     }
 
-    async function copyCode(button) {
+    async function copyCode(button: HTMLElement) {
       const text = button?.parentElement?.querySelector("code")?.innerText;
       await navigator.clipboard.writeText(text ?? "");
 
@@ -213,6 +213,5 @@ const nextPost =
         button.innerText = copyButtonLabel;
       }, 700);
     }
-  }
-  attachCopyButtons();
+  });
 </script>
