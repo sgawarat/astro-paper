@@ -1,0 +1,36 @@
+---
+import { SITE } from "@/config";
+---
+
+{
+  SITE.showProgressBar && (
+    <div class="progress-container fixed top-0 z-10 h-1 w-full bg-background">
+        <div id="myBar" class="progress-bar h-1 w-0 bg-accent"></div>
+    </div>
+  )
+}
+
+<script>
+  /** Update the progress bar when user scrolls */
+  document.addEventListener("astro:page-load", () => {
+    const myBar = document.getElementById("myBar");
+    if (myBar === null) return;
+
+    function scrollListener() {
+      const winScroll = document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (myBar !== null) myBar.style.width = scrolled + "%";
+    }
+    document.addEventListener("scroll", scrollListener);
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        document.removeEventListener("scroll", scrollListener);
+      },
+      { once: true }
+    );
+  });
+</script>

@@ -44,6 +44,7 @@ const siteConfigSchema = z
     scheduledPostMargin: z.number().default(15 * 60 * 1000),
     showArchives: z.boolean().default(true),
     showBackButton: z.boolean().default(true),
+    showProgressBar: z.boolean().default(true),
     editPost: z
       .object({
         enabled: z.boolean(),
