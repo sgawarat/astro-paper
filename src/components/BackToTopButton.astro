@@ -19,10 +19,6 @@ import { Icon } from "astro-icon/components";
       "md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg",
     ]}
   >
-    <span
-      id="progress-indicator"
-      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"
-    ></span>
     <Icon name="tabler:chevron-left" class="inline-block rotate-90 md:hidden" />
     <span class="sr-only text-sm group-hover:text-accent md:not-sr-only">
       <Icon name="tabler:arrow-narrow-up" class="inline-block size-4" />
@@ -35,14 +31,10 @@ import { Icon } from "astro-icon/components";
   /** Scrolls the document to the top when
    * the "Back to Top" button is clicked. */
   document.addEventListener("astro:page-load", () => {
-    const rootElement = document.documentElement;
     const btnContainer = document.querySelector("#btt-btn-container");
-    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
-    const progressIndicator = document.querySelector<HTMLElement>(
-      "#progress-indicator"
-    );
+    if (btnContainer === null) return;
 
-    // Attach click event handler for back-to-top button
+    const backToTopBtn = btnContainer.querySelector("[data-button='back-to-top']");
     backToTopBtn?.addEventListener("click", () => {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -51,17 +43,10 @@ import { Icon } from "astro-icon/components";
     // Handle button visibility according to scroll position
     let lastVisible: boolean | undefined;
     function handleScroll() {
-      if (btnContainer === null || progressIndicator === null) return;
-
+      if (btnContainer === null) return;
+      const rootElement = document.documentElement;
       const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
       const scrollTop = rootElement.scrollTop;
-      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
-
-      progressIndicator.style.setProperty(
-        "background-image",
-        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
-      );
-
       const isVisible = scrollTop / scrollTotal > 0.1 || scrollTop > 1000;
       if (isVisible !== lastVisible) {
         btnContainer.classList.toggle("opacity-100", isVisible);
