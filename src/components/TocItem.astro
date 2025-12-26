@@ -19,12 +19,14 @@ export interface Props {
       {items.map(item => (
         <>
           {Array.isArray(item) ? (
-            <Astro.self
-              items={item}
-              depth={depth + 1}
-              maxDepth={maxDepth}
-              nested
-            />
+            <li>
+              <Astro.self
+                items={item}
+                depth={depth + 1}
+                maxDepth={maxDepth}
+                nested
+              />
+            </li>
           ) : (
             <li class="-indent-2">
               <a
