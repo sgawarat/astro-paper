@@ -8,6 +8,7 @@ import {
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
+import { transformerCopyButton } from "./src/utils/transformers/copyButton";
 import { SITE } from "./src/config";
 import { remarkAozoraRuby } from "@sgawarat/remark-aozora-ruby";
 import { remarkObsidianBlockId } from "@sgawarat/remark-obsidian-block-id";
@@ -98,6 +99,7 @@ export default defineConfig({
       wrap: true,
       transformers: [
         transformerFileName({ style: "v2", hideDot: false }),
+        transformerCopyButton(),
         transformerNotationHighlight(),
         transformerNotationWordHighlight(),
         transformerNotationDiff({ matchAlgorithm: "v3" }),
