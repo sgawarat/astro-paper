@@ -34,7 +34,9 @@ import { Icon } from "astro-icon/components";
     const btnContainer = document.querySelector("#btt-btn-container");
     if (btnContainer === null) return;
 
-    const backToTopBtn = btnContainer.querySelector("[data-button='back-to-top']");
+    const backToTopBtn = btnContainer.querySelector(
+      "[data-button='back-to-top']"
+    );
     backToTopBtn?.addEventListener("click", () => {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

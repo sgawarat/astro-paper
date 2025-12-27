@@ -194,7 +194,9 @@ const nextPost =
    * allowing users to copy code easily. */
   document.addEventListener("astro:page-load", () => {
     const copyButtonLabel = "Copy";
-    for (const copyButton of document.querySelectorAll<HTMLElement>(".copy-code")) {
+    for (const copyButton of document.querySelectorAll<HTMLElement>(
+      ".copy-code"
+    )) {
       copyButton.addEventListener("click", async () => {
         await copyCode(copyButton);
       });
