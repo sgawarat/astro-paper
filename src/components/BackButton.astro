@@ -25,13 +25,12 @@ import { SITE } from "@/config";
 <script>
   /* Update Search Praam */
   document.addEventListener("astro:page-load", () => {
-    const backButton: HTMLAnchorElement | null =
-      document.querySelector("#back-button");
-
+    const backButton = document.getElementById(
+      "back-button"
+    ) as HTMLAnchorElement;
+    if (backButton === null) return;
     const backUrl = sessionStorage.getItem("backUrl");
-
-    if (backUrl && backButton) {
-      backButton.href = backUrl;
-    }
+    if (backUrl === null) return;
+    backButton.href = backUrl;
   });
 </script>

@@ -31,12 +31,10 @@ import { Icon } from "astro-icon/components";
   /** Scrolls the document to the top when
    * the "Back to Top" button is clicked. */
   document.addEventListener("astro:page-load", () => {
-    const btnContainer = document.querySelector("#btt-btn-container");
+    const btnContainer = document.getElementById("btt-btn-container");
     if (btnContainer === null) return;
 
-    const backToTopBtn = btnContainer.querySelector(
-      "[data-button='back-to-top']"
-    );
+    const backToTopBtn = btnContainer.firstElementChild;
     backToTopBtn?.addEventListener("click", () => {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

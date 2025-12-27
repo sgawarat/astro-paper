@@ -81,10 +81,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
+    const mainContent = document.getElementById("main-content");
+    if (mainContent === null) return;
+    const indexLayout = mainContent.dataset.layout;
+    if (indexLayout === null) return;
+    sessionStorage.setItem("backUrl", "/");
   });
 </script>

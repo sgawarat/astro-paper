@@ -142,12 +142,14 @@ const isActive = (path: string) => {
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const menuBtn = document.querySelector("#menu-btn");
-    const menuItems = document.querySelector("#menu-items");
-    const menuIcon = document.querySelector("#menu-icon");
-    const closeIcon = document.querySelector("#close-icon");
-
-    if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
+    const menuBtn = document.getElementById("menu-btn");
+    if (menuBtn === null) return;
+    const menuItems = document.getElementById("menu-items");
+    if (menuItems === null) return;
+    const menuIcon = document.getElementById("menu-icon");
+    if (menuIcon === null) return;
+    const closeIcon = document.getElementById("close-icon");
+    if (closeIcon === null) return;
 
     menuBtn.addEventListener("click", () => {
       const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
