@@ -115,8 +115,6 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
-
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
       // include google-site-verification tag in the heading
@@ -133,7 +131,10 @@ const structuredData = {
 
     <Font cssVariable="--font-math" />
     <Font cssVariable="--font-math-text" />
-    <script is:inline src="/toggle-theme.js"></script>
+    <script is:inline>
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") ?? undefined;
+    </script>
   </head>
   <body>
     <slot />
@@ -149,3 +150,10 @@ const structuredData = {
     height: 100%;
   }
 </style>
+
+<script>
+  document.addEventListener("astro:before-swap", event => {
+    event.newDocument.documentElement.dataset.theme =
+      document.documentElement.dataset.theme;
+  });
+</script>

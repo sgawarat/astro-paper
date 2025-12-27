@@ -160,5 +160,11 @@ const isActive = (path: string) => {
       menuIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
+
+    document.getElementById("theme-btn")?.addEventListener("click", () => {
+      const theme = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("theme", theme);
+    });
   });
 </script>
