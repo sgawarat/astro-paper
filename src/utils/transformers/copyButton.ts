@@ -9,7 +9,7 @@ export function transformerCopyButton(): ShikiTransformer {
         tagName: "button",
         properties: {
           class:
-            "copy-code absolute end-3 top-[calc(var(--spacing) * var(--file-name-offset, -3))] rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium",
+            "copy-code absolute end-3 top-(--file-name-offset) rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium",
         },
         children: [
           {
