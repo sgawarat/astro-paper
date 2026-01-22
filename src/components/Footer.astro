@@ -23,9 +23,9 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
       "flex flex-col items-center justify-between sm:flex-row-reverse",
     ]}
   >
-    <Socials />
-
     <a class="text-foreground hover:text-accent" href="/notice">NOTICE</a>
+
+    <Socials />
 
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
       <span>Copyright &#169; {currentYear} {SITE.author}</span>
