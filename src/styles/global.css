@@ -37,6 +37,8 @@ html[data-theme="dark"] {
 }
 
 @theme inline {
+  --font-article: sans-serif, var(--font-sans);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -67,6 +69,10 @@ html[data-theme="dark"] {
   section:not(article section),
   footer {
     @apply mx-auto max-w-app px-4;
+  }
+
+  article {
+    @apply font-article;
   }
 }
 
