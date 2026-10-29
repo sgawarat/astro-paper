@@ -9,12 +9,19 @@
     h2,
     h3,
     h4,
+    h5,
+    h6,
     th {
       @apply text-foreground mb-3;
     }
 
     h3 {
       @apply italic;
+    }
+
+    h5,
+    h6 {
+      @apply text-sm font-semibold;
     }
 
     p,
@@ -31,9 +38,11 @@
       @apply text-foreground hover:text-accent wrap-break-word decoration-dashed underline-offset-4 focus-visible:no-underline;
     }
 
+/*
     ul {
       @apply overflow-x-clip;
     }
+*/
 
     li {
       @apply marker:text-accent;
@@ -60,6 +69,8 @@
     }
 
     table {
+      @apply block overflow-x-auto;
+
       th,
       td {
         @apply border-border border p-2;

@@ -1,0 +1,92 @@
+---
+import type { MarkdownHeading } from "astro";
+import TocItem from "./TocItem.astro";
+
+const { headings, maxDepth } = Astro.props;
+
+type TocNode = MarkdownHeading | TocNode[];
+
+function buildTocTree(
+  headings: MarkdownHeading[],
+  maxDepth: number = Infinity
+) {
+  let minDepth = Infinity;
+  for (const h of headings) {
+    minDepth = Math.min(minDepth, h.depth);
+  }
+
+  const baseDepth = minDepth - 1;
+  const stack: TocNode[][] = [];
+  for (const h of headings) {
+    if (h.depth > maxDepth) continue;
+    const depth = h.depth - baseDepth;
+    if (stack.length > depth) {
+      stack.length = depth;
+    } else {
+      while (stack.length < depth) {
+        const items: TocNode[] = [];
+        stack.at(-1)?.push(items);
+        stack.push(items);
+      }
+    }
+    stack.at(-1)?.push(h);
+  }
+  return [stack[0] ?? [], minDepth] as const;
+}
+
+const [tree, minDepth] = buildTocTree(headings, maxDepth);
+
+export interface Props {
+  headings: MarkdownHeading[];
+  maxDepth?: number | undefined;
+}
+---
+
+{
+  tree.length > 0 && (
+    <nav class="max-w-fit border-l py-4 pl-5 wrap-normal">
+      <TocItem items={tree} depth={minDepth} />
+    </nav>
+  )
+}
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const sections = document.querySelectorAll("article section");
+    if (sections.length == 0) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          const h = entry.target.querySelector("h1,h2,h3,h4,h5,h6");
+          if (h === null) continue;
+
+          const id = h.getAttribute("id");
+          if (id === null) continue;
+
+          const e = document.getElementById(`toc-${id}`);
+          if (e === null) continue;
+
+          if (entry.isIntersecting) {
+            e.classList.remove("border-transparent");
+          } else {
+            e.classList.add("border-transparent");
+          }
+        }
+      },
+      {
+        rootMargin: "0% 0px 0% 0px",
+      }
+    );
+
+    for (const h of sections) {
+      observer.observe(h);
+    }
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => observer.disconnect(),
+      { once: true }
+    );    
+  });
+</script>

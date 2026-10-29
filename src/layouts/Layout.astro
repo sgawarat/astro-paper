@@ -50,6 +50,9 @@ const rssHref = getRelativeLocaleUrl(
       preload={[{ subset: "latin", weight: 400, style: "normal" }]}
     />
 
+    <Font cssVariable="--font-math" />
+    <Font cssVariable="--font-math-text" />
+
     <!-- Primary meta -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -122,6 +125,7 @@ const rssHref = getRelativeLocaleUrl(
     <slot />
     <script>
       import "@/scripts/theme";
+      import "@/scripts/tooltip";
     </script>
   </body>
 </html>

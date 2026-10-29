@@ -1,0 +1,44 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type TocItem = MarkdownHeading | TocItem[];
+
+const { items, depth, maxDepth, indent } = Astro.props;
+
+export interface Props {
+  items: TocItem[];
+  depth: number;
+  maxDepth?: number | undefined;
+  indent?: number | undefined;
+}
+---
+
+{
+  maxDepth !== undefined && depth > maxDepth ? undefined : (
+    <ul class="flex flex-col gap-y-3">
+      {items.map(item => (
+        <>
+          {Array.isArray(item) ? (
+            <li>
+              <Astro.self
+                items={item}
+                depth={depth + 1}
+                maxDepth={maxDepth}
+                indent={indent ?? 2 + 2}
+              />
+            </li>
+          ) : (
+            <li
+              id={`toc-${item.slug}`}
+              class={`border-l-2 border-(--color-accent) border-transparent pl-${indent ?? 2} -indent-2`}
+            >
+              <a class="hover:text-accent pl-2" href={`#${item.slug}`}>
+                {item.text}
+              </a>
+            </li>
+          )}
+        </>
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,37 @@
+/* SPDX-License-Identifier: MIT */
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  math {
+    @apply text-foreground;
+    font-family: var(--font-math), var(--font-math-text), math;
+  }
+
+  /* 数式ブロック */
+  .katex:has(math[display="block"]) {
+    /* 長過ぎる数式はスクロールバーを表示する */
+    @apply block w-full overflow-x-auto py-3;
+
+    /* 数式を少し大きく表示する */
+    math {
+      @apply text-lg;
+    }
+
+    /* 積分記号が小さくなる事がある問題を無理やり解消させる */
+    mtable {
+      math-style: normal;
+    }
+
+    /* tagが右端に揃わない問題を無理やり解消させる */
+    semantics {
+      width: 100%;
+    }
+    mtable[width="100%"] {
+      width: 100%;
+    }
+    mtd[width="50%"] {
+      width: 50%;
+      min-width: 0.5rem; /* tagが数式の一部と誤認されない程度に幅を空ける */
+    }
+  }
+}

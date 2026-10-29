@@ -27,6 +27,7 @@ const {
 
 const t = useTranslations(Astro.currentLocale);
 
+/*
 const isModified = modDatetime && modDatetime > pubDatetime;
 
 const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
@@ -34,6 +35,17 @@ const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
 );
 
 const date = datetime.format("D MMM, YYYY");
+*/
+
+const modDatetimeLocal = dayjs(modDatetime).tz(postTimezone || config.site.timezone);
+const pubDatetimeLocal = dayjs(pubDatetime).tz(postTimezone || config.site.timezone);
+
+// 日を跨いでの作業が修正に含まれないようにするため、判定に1日の猶予を持たせる
+const isModified =
+  modDatetimeLocal && modDatetimeLocal > pubDatetimeLocal.add(1, "day");
+
+const modDate = modDatetimeLocal.format("YYYY-MM-DD");
+const pubDate = pubDatetimeLocal.format("YYYY-MM-DD");
 ---
 
 <div
@@ -45,6 +57,7 @@ const date = datetime.format("D MMM, YYYY");
       { "scale-90": size === "sm" },
     ]}
   />
+<!--
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
@@ -58,4 +71,28 @@ const date = datetime.format("D MMM, YYYY");
   >
     {date}
   </time>
+-->
+
+  <time
+    class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+    datetime={pubDatetimeLocal.toISOString()}>{pubDate}</time
+  >
+  {
+    isModified && (
+      <>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          ·
+        </span>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          {t.post.updatedAt}:
+          <time
+            class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+            datetime={modDatetimeLocal.toISOString()}
+          >
+            {modDate}
+          </time>
+        </span>
+      </>
+    )
+  }
 </div>

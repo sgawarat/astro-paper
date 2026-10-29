@@ -16,6 +16,8 @@ import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@/config";
 
+import TOC from "./_components/Toc.astro";
+
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   const sortedPosts = getSortedPosts(posts);
@@ -73,7 +75,11 @@ const {
   hideEditPost,
 } = post.data;
 
+/*
 const { Content } = await render(post);
+*/
+
+const { Content, headings } = await render(post);
 
 let ogImageUrl: string | undefined;
 
@@ -107,6 +113,9 @@ const ogImage = ogImageUrl
   <Header />
 
   <BackButton />
+
+  <div class="flex flex-row justify-center">
+  <div class="hidden w-[calc(50vw-24rem)] max-w-xs md:block"></div>
 
   <main
     id="main-content"
@@ -161,6 +170,18 @@ const ogImage = ogImageUrl
 
     <AdjacentPostNav {prevPost} {nextPost} />
   </main>
+
+  <div class="hidden w-[calc(50vw-24rem)] max-w-xs md:block">
+    <div class="hidden py-4 text-sm lg:block">Table of Contents:</div>
+    <div
+      id="sticky-toc"
+      class="sticky top-10 mr-2 hidden h-[calc(100vh-5rem)] overflow-y-scroll text-sm lg:block"
+    >
+      <TOC headings={headings} maxDepth={4} />
+    </div>
+  </div>
+  </div>
+
   <Footer />
 </PostLayout>
 
@@ -180,7 +201,10 @@ const ogImage = ogImageUrl
   createProgressBar();
 
   function updateScrollProgress() {
+/*
     document.addEventListener("scroll", () => {
+*/
+    const scrollListener = () => {
       const winScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
       const height =
@@ -193,10 +217,22 @@ const ogImage = ogImageUrl
           myBar.style.width = scrolled + "%";
         }
       }
+/*
     });
+*/
+    };
+    document.addEventListener("scroll", scrollListener);
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        document.removeEventListener("scroll", scrollListener);
+      },
+      { once: true }
+    );
   }
   updateScrollProgress();
 
+/*
   function addHeadingLinks() {
     const headings = Array.from(
       document.querySelectorAll("h2, h3, h4, h5, h6")
@@ -216,6 +252,7 @@ const ogImage = ogImageUrl
     }
   }
   addHeadingLinks();
+*/
 
   function attachCopyButtons() {
     const copyButtonLabel = "Copy";
@@ -441,7 +478,10 @@ const ogImage = ogImageUrl
       document.body.appendChild(overlay);
       document.body.style.overflow = "hidden";
       document.addEventListener("keydown", onKeyDown);
+/*
       window.__closeLightbox = close;
+*/
+      document.addEventListener("astro:before-swap", close, { once: true });
 
       requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
       closeButton.focus();
@@ -451,7 +491,10 @@ const ogImage = ogImageUrl
       if (!overlay) return;
       const el = overlay;
       overlay = null;
+/*
       window.__closeLightbox = null;
+*/
+      document.removeEventListener("astro:before-swap", close);
 
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
@@ -521,14 +564,17 @@ const ogImage = ogImageUrl
   }
   initLightbox();
 
+/*
   if (!window.__lightboxSwapBound) {
     window.__lightboxSwapBound = true;
     document.addEventListener("astro:before-swap", () =>
       window.__closeLightbox?.()
     );
   }
+*/
 
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+    ,{ once: true }
   );
 </script>

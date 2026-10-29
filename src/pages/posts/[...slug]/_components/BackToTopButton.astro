@@ -61,7 +61,10 @@ const t = useTranslations(Astro.currentLocale);
         `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
       );
 
+/*
       const isVisible = scrollTop / scrollTotal > 0.3;
+*/
+      const isVisible = scrollTop / scrollTotal > 0.1 || scrollTop > 1000;
 
       if (isVisible !== lastVisible) {
         btnContainer.classList.toggle("opacity-100", isVisible);
@@ -73,7 +76,10 @@ const t = useTranslations(Astro.currentLocale);
     }
 
     let ticking = false;
+/*
     document.addEventListener("scroll", () => {
+*/
+    const scrollListener =  () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           handleScroll();
@@ -81,7 +87,18 @@ const t = useTranslations(Astro.currentLocale);
         });
         ticking = true;
       }
+/*
     });
+*/
+    };
+    document.addEventListener("scroll", scrollListener);
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        document.removeEventListener("scroll", scrollListener);
+      },
+      { once: true }
+    );
   }
   backToTop();
 </script>
