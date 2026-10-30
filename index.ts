@@ -95,7 +95,7 @@ export function astroPaperIntegration(userConfig: AstroPaperConfig, opts?: Astro
             shikiConfig: {
               themes: { light: "github-light", dark: "github-dark" },
               defaultColor: false,
-              wrap: false,
+              wrap: true,
               transformers: [
                 transformerFileName({ style: "v2", hideDot: false }),
                 transformerNotationHighlight(),
