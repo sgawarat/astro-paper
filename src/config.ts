@@ -4,7 +4,10 @@
  * Prefer editing `astro-paper.config.ts` instead of this file. This module exists to
  * apply defaults and expose a fully-resolved config shape (`ResolvedAstroPaperConfig`).
  */
+/*
 import userConfig from "@/astro-paper.config";
+*/
+import userConfig from "virtual:astro-paper.config";
 import type { ResolvedAstroPaperConfig } from "./types/config";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 
@@ -25,6 +28,7 @@ const config: ResolvedAstroPaperConfig = {
     perIndex: userConfig.posts?.perIndex ?? 4,
     scheduledPostMargin:
       userConfig.posts?.scheduledPostMargin ?? 15 * 60 * 1000,
+    baseDir: userConfig.posts?.baseDir ?? "src/content/posts",
   },
   features: {
     lightAndDarkMode: userConfig.features?.lightAndDarkMode ?? true,

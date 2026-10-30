@@ -31,6 +31,9 @@ interface PostsConfig {
    * are shown as published. Defaults to 15 minutes.
    */
   scheduledPostMargin?: number;
+  
+  /** Base directory for posts */
+  baseDir?: string;
 }
 
 interface FeaturesConfig {
@@ -92,7 +95,7 @@ interface ShareLink {
   linkTitle?: string;
 }
 
-interface AstroPaperConfig {
+export interface AstroPaperConfig {
   site: SiteConfig;
   posts?: PostsConfig;
   features?: FeaturesConfig;

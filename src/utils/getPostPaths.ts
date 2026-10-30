@@ -1,7 +1,11 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
+/*
 import { BLOG_PATH } from "@/content.config";
+*/
 import { slugifyStr } from "./slugify";
 import config from "@/config";
+
+const BLOG_PATH = config.posts.baseDir;
 
 function getPostPathSegments(filePath: string | undefined): string[] {
   return (
