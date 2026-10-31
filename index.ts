@@ -109,6 +109,7 @@ export function astroPaperIntegration(userConfig: AstroPaperConfig, opts?: Astro
               tailwindcss(),
               {
                 name: "virtual astro-paper.config",
+                enforce: "pre",
                 resolveId(id) {
                   if (id !== "@/astro-paper.config") return undefined;
                   return "\0@/astro-paper.config";
