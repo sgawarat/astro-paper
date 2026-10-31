@@ -4,10 +4,7 @@
  * Prefer editing `astro-paper.config.ts` instead of this file. This module exists to
  * apply defaults and expose a fully-resolved config shape (`ResolvedAstroPaperConfig`).
  */
-/*
 import userConfig from "@/astro-paper.config";
-*/
-import userConfig from "virtual:astro-paper.config";
 import type { ResolvedAstroPaperConfig } from "./types/config";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 

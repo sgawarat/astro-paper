@@ -110,11 +110,11 @@ export function astroPaperIntegration(userConfig: AstroPaperConfig, opts?: Astro
               {
                 name: "virtual astro-paper.config",
                 resolveId(id) {
-                  if (id !== "virtual:astro-paper.config") return undefined;
-                  return "\0virtual:astro-paper.config";
+                  if (id !== "@/astro-paper.config") return undefined;
+                  return "\0@/astro-paper.config";
                 },
                 load(id) {
-                  if (id !== "\0virtual:astro-paper.config") return undefined;
+                  if (id !== "\0@/astro-paper.config") return undefined;
                   return `export default ${JSON.stringify(userConfig)};`;
                 },
               }

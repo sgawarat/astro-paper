@@ -117,20 +117,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [
-      tailwindcss(),
-      {
-        name: "virtual astro-paper.config",
-        resolveId(id) {
-          if (id !== "virtual:astro-paper.config") return undefined;
-          return "\0virtual:astro-paper.config";
-        },
-        load(id) {
-          if (id !== "\0virtual:astro-paper.config") return undefined;
-          return `export default ${JSON.stringify(config)};`;
-        },
-      }
-    ],
+    plugins: [tailwindcss()],
   },
   fonts: [
     {
