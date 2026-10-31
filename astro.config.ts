@@ -23,20 +23,12 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 
-import { remarkAozoraRuby } from "@sgawarat/remark-aozora-ruby";
-import { remarkObsidianBlockId } from "@sgawarat/remark-obsidian-block-id";
-import {
-  createGlob,
-  remarkObsidianWikilink,
-} from "@sgawarat/remark-obsidian-wikilink";
-import { remarkPandocCitation } from "@sgawarat/remark-pandoc-citation";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { rehypeHeadingIds, type RemarkPlugin } from "@astrojs/markdown-remark";
 import remarkSectionize from "remark-sectionize";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { slugifyStr } from "./src/utils/slugify";
 
 // 処理中のファイルのパスをログに出力するremarkプラグイン
 const remarkLog: RemarkPlugin<[]> = () => (_tree, vfile) => {
@@ -75,17 +67,6 @@ export default defineConfig({
         remarkLog,
         [remarkMath, { singleDollarTextMath: true }],
         remarkSectionize,
-        [remarkAozoraRuby, {}],
-        [
-          remarkObsidianWikilink,
-          {
-            glob: createGlob("./src/content/posts"),
-            slugify: slugifyStr,
-            baseUrl: `/posts`,
-          },
-        ],
-        [remarkPandocCitation, { bibliography: "./src/content/data/bibliography.json" }],
-        [remarkObsidianBlockId, {}],
       ],
       remarkRehype: {
         footnoteLabelProperties: {},
@@ -136,7 +117,20 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      {
+        name: "virtual astro-paper.config",
+        resolveId(id) {
+          if (id !== "virtual:astro-paper.config") return undefined;
+          return "\0virtual:astro-paper.config";
+        },
+        load(id) {
+          if (id !== "\0virtual:astro-paper.config") return undefined;
+          return `export default ${JSON.stringify(config)};`;
+        },
+      }
+    ],
   },
   fonts: [
     {

@@ -30,12 +30,14 @@ const posts = defineCollection({
 /*
     }),
 */
-      dateCreated: z.date(),
+      pubDatetime: z.date().optional(),
+      modDatetime: z.date().optional().nullable(),
+      dateCreated: z.date().optional(),
       dateModified: z.date().optional().nullable(),
     }).transform(data => ({
       ...data,
-      pubDatetime: data.dateCreated,
-      modDatetime: data.dateModified,
+      pubDatetime: data.pubDatetime ?? data.dateCreated ?? new Date(),
+      modDatetime: data.modDatetime ?? data.dateModified,
     })),
 });
 
