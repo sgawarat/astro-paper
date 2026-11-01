@@ -110,18 +110,30 @@ const ogImage = ogImageUrl
   pubDatetime={pubDatetime}
   modDatetime={modDatetime}
 >
-  <div class="flex flex-row justify-center">
-  <div>
 
   <Header />
 
+<!--
   <BackButton />
+-->
 
+<!--
   <main
     id="main-content"
     class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
     data-pagefind-body
   >
+-->
+  <main
+    id="main-content"
+    class:list={[
+      "app-layout",
+      { "lg:max-w-5xl": headings.length > 0 },
+      { "mt-8": !config.features.showBackButton }
+    ]}
+    data-pagefind-body
+  >
+    <BackButton />
     <h1
       style={{ viewTransitionName: toTransitionName(post.id) }}
       class="text-accent inline-block text-2xl font-bold sm:text-3xl"
@@ -143,16 +155,22 @@ const ogImage = ogImageUrl
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
 
+    <div class="flex flex-row">
+
     <article
       id="article"
       class:list={[
         "mt-8 w-full",
         "app-prose max-w-app",
+        "lg:pr-8",
         "prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)",
       ]}
     >
       <Content />
     </article>
+
+    <TOC headings={headings} maxDepth={4} />
+    </div>
 
     <hr class="my-8 border-dashed" />
 
@@ -172,10 +190,6 @@ const ogImage = ogImageUrl
   </main>
 
   <Footer />
-
-  </div>
-  <TOC headings={headings} maxDepth={4} />
-  </div>
 
 </PostLayout>
 

@@ -3,6 +3,7 @@
 @import "./typography.css";
 @import "rehype-callouts/theme/obsidian";
 
+@import "./toc.css";
 @import "./math.css";
 @import "./tooltip.css";
 

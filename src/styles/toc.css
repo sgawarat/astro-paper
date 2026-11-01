@@ -1,0 +1,29 @@
+@utility toc-active {
+    @apply border-accent;
+}
+
+@layer base {
+    .toc-indent-0 {
+        @apply pl-3;
+    }
+
+    .toc-indent-1 {
+        @apply pl-5;
+    }
+
+    .toc-indent-2 {
+        @apply pl-7;
+    }
+
+    .toc-indent-3 {
+        @apply pl-9;
+    }
+
+    .toc-indent-4 {
+        @apply pl-11;
+    }
+
+    .toc-indent-5 {
+        @apply pl-13;
+    }
+}

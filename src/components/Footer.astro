@@ -15,8 +15,14 @@ const t = useTranslations(Astro.currentLocale);
 const currentYear = new Date().getFullYear();
 ---
 
+<!--
 <footer
   class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
+  {...attrs}
+>
+-->
+<footer
+  class:list={["app-layout max-w-full", { "mt-auto": !noMarginTop }, className]}
   {...attrs}
 >
   <div
