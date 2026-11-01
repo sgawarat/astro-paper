@@ -146,7 +146,7 @@ const ogImage = ogImageUrl
       <span
         aria-hidden="true"
         class:list={[
-          "text-muted-foreground max-sm:hidden",
+          "text-neutral max-sm:hidden",
           { hidden: !config.features.editPost?.enabled || hideEditPost },
         ]}
       >
@@ -197,10 +197,10 @@ const ogImage = ogImageUrl
   function createProgressBar() {
     const progressContainer = document.createElement("div");
     progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+      "progress-container fixed top-0 z-10 h-1 w-full";
 
     const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.className = "progress-bar h-1 w-0 bg-accent-emphasis";
     progressBar.id = "myBar";
 
     progressContainer.appendChild(progressBar);
@@ -279,7 +279,7 @@ const ogImage = ogImageUrl
         : "-top-3";
 
       const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-neutral-muted border border-border px-2 py-1 text-xs leading-4 text-foreground font-medium`;
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);

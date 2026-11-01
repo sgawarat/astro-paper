@@ -1,64 +1,46 @@
-/* Register design tokens for Tailwind v4 */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-/*
-  --font-app: var(--font-google-sans-code);
-*/
+  --color-background: var(--bgColor-default);
+  --color-accent-emphasis: var(--bgColor-accent-emphasis);
+  --color-neutral-muted: var(--bgColor-neutral-muted);
+
+  --color-foreground: var(--fgColor-default);
+  --color-accent: var(--fgColor-accent);
+  --color-neutral: var(--fgColor-neutral);
+  --color-on-emphasis: var(--fgColor-onEmphasis);
+
+  --color-border: var(--borderColor-default);
+  --color-border-accent-emphasis: var(--borderColor-accent-emphasis);
+
   --font-app: sans-serif;
 }
 
-/* Light theme values */
-/*
-:root,
-[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --accent-foreground: #ffffff;
-  --muted: #e6e6e6;
-  --muted-foreground: #6b7280;
-  --border: #ece9e9;
-}
-*/
-
-/* Dark theme values */
-/*
-[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --accent-foreground: #ffffff;
-  --muted: #343f60;
-  --muted-foreground: #afb9ca;
-  --border: #ab4b08;
-}
-*/
-
-/* GitHub Light theme */
+/* Source: https://primer.style/primitives/storybook/ */
 :root,
 html[data-theme="light"] {
-  --background: #ffffff;
-  --foreground: #24292e;
-  --accent: #0366d6;
-  --accent-foreground: #2f363d;
-  --muted: #f6f8fa;
-  --muted-foreground: #6a737d;
-  --border: #e1e4e8;
-}
+  /* Light */
+  --bgColor-default: #ffffff;
+  --bgColor-accent-emphasis: #0969da;
+  --bgColor-neutral-muted: #818b981f;
 
+  --fgColor-default: #1f2328;
+  --fgColor-accent: #0969da;
+  --fgColor-neutral: #59636e;
+  --fgColor-onEmphasis: #ffffff;
+
+  --borderColor-default: #d1d9e0;
+  --borderColor-accent-emphasis: #0969da;
+}
 html[data-theme="dark"] {
-  /* GitHub Dark theme */
-  --background: #24292e;
-  --foreground: #e1e4e8;
-  --accent: #79b8ff;
-  --accent-foreground: #e1e4e8;
-  --muted: #2f363d;
-  --muted-foreground: #6a737d;
-  --border: #444d56;
+  /* Soft Dark */
+  --bgColor-default: #212830;
+  --bgColor-accent-emphasis: #316dca;
+  --bgColor-neutral-muted: #656c7633;
+
+  --fgColor-default: #d1d7e0;
+  --fgColor-accent: #478be6;
+  --fgColor-neutral: #9198a1;
+  --fgColor-onEmphasis: #f0f6fc;
+
+  --borderColor-default: #3d444d;
+  --borderColor-accent-emphasis: #316dca;
 }
